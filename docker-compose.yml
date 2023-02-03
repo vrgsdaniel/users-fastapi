@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  users:
+    image: users:latest
+    build:
+      context: .
+    env_file:
+      - .env
+    ports: 
+      - "8080:8080"
+
+  db:
+    image: postgres:13.4-alpine
+    restart: always
+    environment:
+      PGUSER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migrations/schema.sql:/docker-entrypoint-initdb.d/0.init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
