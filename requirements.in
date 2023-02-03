@@ -1,0 +1,13 @@
+black
+fastapi
+httpx
+isort
+passlib[bcrypt]
+psycopg2-binary
+pydantic
+pytest
+python-jose[cryptography]
+python-multipart
+uvicorn[standard]
+tox
+tox-docker
